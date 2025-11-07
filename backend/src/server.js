@@ -7,8 +7,6 @@ import {ENV} from './lib/env.js';
 const app = express();
 const __dirname = path.resolve();
 
-console.log(process.env.PORT);
-console.log(ENV.DB_URL);
 app.get('/health', (req, res) => {
   res.status(200).json({msg:"api is running perfectly"});
 });
