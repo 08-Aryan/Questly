@@ -1,12 +1,21 @@
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
 // Import environment variables
 import {ENV} from './lib/env.js';
 import { connectDB } from './lib/db.js';
+import {serve} from 'inngest/express';
+import {inngest} from './lib/inngest.js';
 // Initialize environment variables
 
 const app = express();
 const __dirname = path.resolve();
+
+// Middleware to parse JSON requests
+app.use(express.json());
+// creditials:true allows cookies to be sent along with requests
+app.use(cors({origin:ENV.CLIENT_URL,credentials:true}));
+app.use("/api/inngest", serve({ client: inngest, functions }));
 
 app.get('/health', (req, res) => {
   res.status(200).json({msg:"api is running perfectly"});
