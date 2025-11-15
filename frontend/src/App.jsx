@@ -1,20 +1,20 @@
-import './App.css';
-import {SignInButton, SignOutButton, UserButton,SignedIn,SignedOut} from "@clerk/clerk-react";
+import {SignInButton, SignOutButton, UserButton,SignedIn,SignedOut, useUser} from "@clerk/clerk-react";
+import { Navigate, Route, Routes } from "react-router";
+import HomePage from "./pages/Homepage";
+import ProblemsPage from "./pages/ProblemsPage";
+import { Toaster } from "react-hot-toast";
+
 // No need to wrap userbutton in signed in/signed out components
 function App() {
+  const {isSignedIn}=useUser()
   return (
     <>
-      <h1>Welcome to app</h1>
-      <SignedOut>
-        <SignInButton mode='modal'>
-          <button>Login</button>
-        </SignInButton>
-      </SignedOut>
-      <SignedIn>
-        <SignOutButton/>
-      </SignedIn>
-      
-      <UserButton/>
+    <Routes>
+      <Route path='/' element={<HomePage />}/>
+
+      <Route path='/problems' element={isSignedIn ? <ProblemsPage /> : <Navigate to={"/"}/>} />
+    </Routes>
+    <Toaster toastOptions={{duration:3000}}/>
     </>
   )
 }
