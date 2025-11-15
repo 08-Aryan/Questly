@@ -1,6 +1,6 @@
 import {SignInButton, SignOutButton, UserButton,SignedIn,SignedOut, useUser} from "@clerk/clerk-react";
 import { Navigate, Route, Routes } from "react-router";
-import HomePage from "./pages/Homepage";
+import HomePage from "./pages/HomePage";
 import ProblemsPage from "./pages/ProblemsPage";
 import DashboardPage from "./pages/DashboardPage";
 import { Toaster } from "react-hot-toast";
