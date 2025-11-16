@@ -3,7 +3,7 @@ export async function getStreamToken(req,res) {
     try{
         // Using clerk_id for Stream as it is saving using clerId in stream
         const token = chatClient.createToken(req.user.clerkId)
-        res.status(200).jso({
+        res.status(200).json({
             token,
             userId: req.user.clerkId,
             userName: req.user.name,
