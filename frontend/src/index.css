@@ -1,12 +1,50 @@
 @import "tailwindcss";
-@plugin "daisyui"{
-    themes: all;
-};
-/* Add cursor pointer to default  from tailwind docs*/
+
+@plugin "daisyui" {
+  themes: questly-dark --default, dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "questly-dark";
+  default: true;
+  prefersdark: true;
+  color-scheme: "dark";
+  
+  /* Modern professional brand colors - Teal and Emerald (zero purple/indigo) */
+  --color-primary: oklch(0.64 0.15 180); /* Crisp Slate Teal */
+  --color-primary-content: oklch(0.98 0.01 240);
+  
+  --color-secondary: oklch(0.68 0.16 145); /* Elegant technical Emerald */
+  --color-secondary-content: oklch(0.98 0.01 240);
+  
+  --color-accent: oklch(0.70 0.14 195); /* Bright sleek Cyan */
+  --color-accent-content: oklch(0.08 0.01 240);
+  
+  /* Neutral scale - sleek charcoal slate instead of purple-navy */
+  --color-neutral: oklch(0.24 0.01 240); /* Sleek slate grey */
+  --color-neutral-content: oklch(0.90 0.01 240);
+  
+  /* Base background layers - ultra-dark premium slate palette */
+  --color-base-100: oklch(0.12 0.01 240); /* Deep charcoal background */
+  --color-base-200: oklch(0.15 0.01 240); /* Card/Section charcoal grey */
+  --color-base-300: oklch(0.18 0.01 240); /* Slightly lighter panel grey */
+  --color-base-content: oklch(0.94 0.01 240); /* Premium silver-white body text */
+  
+  /* Clean technical alert/state colors */
+  --color-info: oklch(0.68 0.12 210); /* Sleek Steel Blue */
+  --color-success: oklch(0.72 0.15 145); /* Emerald Green success */
+  --color-warning: oklch(0.80 0.13 80); /* Bright amber-gold warning */
+  --color-error: oklch(0.62 0.18 25); /* Crimson error */
+  
+  /* Custom selector shapes */
+  --radius-selector: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-box: 0.75rem;
+}
+
 @layer base {
-    button:not(:disabled),
-    [role="button"]:not(:disabled) {
-        cursor: pointer;
-    }
-   
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }

@@ -65,11 +65,37 @@ class Solution {
         System.out.println(Arrays.toString(twoSum(new int[]{3, 3}, 6))); // Expected: [0, 1]
     }
 }`,
+      cpp: `#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+std::vector<int> twoSum(std::vector<int>& nums, int target) {
+    // Write your solution here
+    
+    return {};
+}
+
+int main() {
+    std::vector<int> nums1 = {2, 7, 11, 15};
+    std::vector<int> result1 = twoSum(nums1, 9);
+    std::cout << "[" << result1[0] << "," << result1[1] << "]" << std::endl;
+
+    std::vector<int> nums2 = {3, 2, 4};
+    std::vector<int> result2 = twoSum(nums2, 6);
+    std::cout << "[" << result2[0] << "," << result2[1] << "]" << std::endl;
+
+    std::vector<int> nums3 = {3, 3};
+    std::vector<int> result3 = twoSum(nums3, 6);
+    std::cout << "[" << result3[0] << "," << result3[1] << "]" << std::endl;
+
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: "[0,1]\n[1,2]\n[0,1]",
       python: "[0, 1]\n[1, 2]\n[0, 1]",
       java: "[0, 1]\n[1, 2]\n[0, 1]",
+      cpp: "[0,1]\n[1,2]\n[0,1]",
     },
   },
 
@@ -137,11 +163,40 @@ class Solution {
         System.out.println(Arrays.toString(test2)); // Expected: [h, a, n, n, a, H]
     }
 }`,
+      cpp: `#include <iostream>
+#include <vector>
+
+void reverseString(std::vector<char>& s) {
+    // Write your solution here
+    
+}
+
+void printVector(const std::vector<char>& s) {
+    std::cout << "[";
+    for (size_t i = 0; i < s.size(); ++i) {
+        std::cout << "\\"" << s[i] << "\\"";
+        if (i < s.size() - 1) std::cout << ",";
+    }
+    std::cout << "]" << std::endl;
+}
+
+int main() {
+    std::vector<char> test1 = {'h', 'e', 'l', 'l', 'o'};
+    reverseString(test1);
+    printVector(test1);
+
+    std::vector<char> test2 = {'H', 'a', 'n', 'n', 'a', 'h'};
+    reverseString(test2);
+    printVector(test2);
+
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: '["o","l","l","e","h"]\n["h","a","n","n","a","H"]',
       python: "['o', 'l', 'l', 'e', 'h']\n['h', 'a', 'n', 'n', 'a', 'H']",
       java: "[o, l, l, e, h]\n[h, a, n, n, a, H]",
+      cpp: "[\"o\",\"l\",\"l\",\"e\",\"h\"]\n[\"h\",\"a\",\"n\",\"n\",\"a\",\"H\"]",
     },
   },
 
@@ -204,11 +259,27 @@ print(isPalindrome(" "))  # Expected: True`,
         System.out.println(isPalindrome(" ")); // Expected: true
     }
 }`,
+      cpp: `#include <iostream>
+#include <string>
+
+bool isPalindrome(std::string s) {
+    // Write your solution here
+    
+    return false;
+}
+
+int main() {
+    std::cout << (isPalindrome("A man, a plan, a canal: Panama") ? "true" : "false") << std::endl;
+    std::cout << (isPalindrome("race a car") ? "true" : "false") << std::endl;
+    std::cout << (isPalindrome(" ") ? "true" : "false") << std::endl;
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: "true\nfalse\ntrue",
       python: "True\nFalse\nTrue",
       java: "true\nfalse\ntrue",
+      cpp: "true\nfalse\ntrue",
     },
   },
 
@@ -270,11 +341,34 @@ print(maxSubArray([5,4,-1,7,8]))  # Expected: 23`,
         System.out.println(maxSubArray(new int[]{5,4,-1,7,8})); // Expected: 23
     }
 }`,
+      cpp: `#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int maxSubArray(std::vector<int>& nums) {
+    // Write your solution here
+    
+    return 0;
+}
+
+int main() {
+    std::vector<int> test1 = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    std::cout << maxSubArray(test1) << std::endl;
+
+    std::vector<int> test2 = {1};
+    std::cout << maxSubArray(test2) << std::endl;
+
+    std::vector<int> test3 = {5, 4, -1, 7, 8};
+    std::cout << maxSubArray(test3) << std::endl;
+
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: "6\n1\n23",
       python: "6\n1\n23",
       java: "6\n1\n23",
+      cpp: "6\n1\n23",
     },
   },
 
@@ -332,11 +426,31 @@ print(maxArea([1,1]))  # Expected: 1`,
         System.out.println(maxArea(new int[]{1,1})); // Expected: 1
     }
 }`,
+      cpp: `#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int maxArea(std::vector<int>& height) {
+    // Write your solution here
+    
+    return 0;
+}
+
+int main() {
+    std::vector<int> test1 = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+    std::cout << maxArea(test1) << std::endl;
+
+    std::vector<int> test2 = {1, 1};
+    std::cout << maxArea(test2) << std::endl;
+
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: "49\n1",
       python: "49\n1",
       java: "49\n1",
+      cpp: "49\n1",
     },
   },
 };
@@ -356,5 +470,10 @@ export const LANGUAGE_CONFIG = {
     name: "Java",
     icon: "/java.png",
     monacoLang: "java",
+  },
+  cpp: {
+    name: "C++",
+    icon: "/cpp.png",
+    monacoLang: "cpp",
   },
 };

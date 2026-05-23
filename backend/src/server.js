@@ -9,6 +9,7 @@ import {inngest , functions} from './lib/inngest.js';
 import { clerkMiddleware } from '@clerk/express';
 import chatRoutes from './routes/chatRoutes.js'
 import sessionRoutes from './routes/sessionRoutes.js'
+import executeRoutes from './routes/executeRoutes.js'
 // Initialize environment variables
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(clerkMiddleware()); // this adds auth field to request object
 app.use('/api/chat',chatRoutes);
 
 app.use('/api/sessions',sessionRoutes);
+app.use('/api/execute',executeRoutes);
 
 app.get('/health', (req, res) => {
   res.status(200).json({msg:"api is running perfectly"});

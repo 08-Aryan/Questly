@@ -1,10 +1,10 @@
 import { Link } from "react-router";
 import {
   ArrowRightIcon,
-  CheckIcon,
+  CheckCircle2Icon,
   Code2Icon,
   SparklesIcon,
-  UsersIcon,
+  Users2Icon,
   VideoIcon,
   ZapIcon,
 } from "lucide-react";
@@ -12,166 +12,184 @@ import { SignInButton } from "@clerk/clerk-react";
 
 function HomePage() {
   return (
-    <div className="bg-gradient-to-br from-base-100 via-base-200 to-base-300">
+    <div className="min-h-screen bg-radial from-slate-900 via-zinc-950 to-black text-slate-100 overflow-x-hidden">
       {/* NAVBAR */}
-      <nav className="bg-base-100/80 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-lg">
-        <div className="max-w-7xl mx-auto p-4 flex items-center justify-between">
+      <nav className="bg-zinc-950/70 backdrop-blur-lg border-b border-zinc-800 sticky top-0 z-50 shadow-2xl">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* LOGO */}
           <Link
-            to={"/"}
-            className="flex items-center gap-3 hover:scale-105 transition-transform duration-200"
+            to="/"
+            className="flex items-center gap-3 hover:scale-[1.01] transition-transform duration-200"
           >
-            <div className="size-10 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg">
+            <div className="size-10 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-600 flex items-center justify-center shadow-lg">
               <SparklesIcon className="size-6 text-white" />
             </div>
 
             <div className="flex flex-col">
-              <span className="font-black text-xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent font-mono tracking-wider">
-              Questly
+              <span className="font-extrabold text-xl bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent tracking-wide">
+                Questly
               </span>
-              <span className="text-xs text-base-content/60 font-medium -mt-1">Code Together</span>
+              <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest -mt-0.5">
+                Code Together
+              </span>
             </div>
           </Link>
 
-          {/* AUTH BTN */}
+          {/* AUTH BUTTON */}
           <SignInButton mode="modal">
-            <button className="group px-6 py-3 bg-gradient-to-r from-primary to-secondary rounded-xl text-white font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 flex items-center gap-2">
+            <button className="group px-5 py-2.5 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-xl text-white font-semibold text-sm shadow-lg hover:shadow-teal-500/25 transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-2">
               <span>Get Started</span>
-              <ArrowRightIcon className="size-4 group-hover:translate-x-0.5 transition-transform" />
+              <ArrowRightIcon className="size-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </SignInButton>
         </div>
       </nav>
 
       {/* HERO SECTION */}
-      <div className="max-w-7xl mx-auto px-4 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* LEFT CONTENT */}
-          <div className="space-y-8">
-            <div className="badge badge-primary badge-lg">
-              <ZapIcon className="size-4" />
-              Real-time Collaboration
+      <div className="relative max-w-7xl mx-auto px-6 pt-16 pb-24">
+        {/* Neon Backdrop Glows (Much softer and cleaner) */}
+        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl -z-10"></div>
+        <div className="absolute top-1/3 right-1/4 translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl -z-10"></div>
+
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          {/* LEFT COLUMN - TEXT CONTENT */}
+          <div className="lg:col-span-7 space-y-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-300 text-xs font-semibold uppercase tracking-wider">
+              <ZapIcon className="size-3.5 fill-teal-300" />
+              <span>Real-Time Code Collaboration</span>
             </div>
 
-            <h1 className="text-5xl lg:text-7xl font-black leading-tight">
-              <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                Code Together,
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
+              Code{" "}
+              <span className="bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">
+                Collaboratively.
               </span>
               <br />
-              <span className="text-base-content">Learn Together</span>
+              Succeed Together.
             </h1>
 
-            <p className="text-xl text-base-content/70 leading-relaxed max-w-xl">
-              The ultimate platform for collaborative coding interviews and pair programming.
-              Connect face-to-face, code in real-time, and ace your technical interviews.
+            <p className="text-lg text-slate-400 leading-relaxed max-w-xl">
+              The ultimate coding assessment and collaborative whiteboard environment. 
+              Run live programming interviews, collaborate on practice problems, and level up your pair-programming workflow in real-time.
             </p>
 
-            {/* FEATURE PILLS */}
-            <div className="flex flex-wrap gap-3">
-              <div className="badge badge-lg badge-outline">
-                <CheckIcon className="size-4 text-success" />
-                Live Video Chat
-              </div>
-              <div className="badge badge-lg badge-outline">
-                <CheckIcon className="size-4 text-success" />
-                Code Editor
-              </div>
-              <div className="badge badge-lg badge-outline">
-                <CheckIcon className="size-4 text-success" />
-                Multi-Language 
-              </div>
+            {/* FLOATING PILLS */}
+            <div className="flex flex-wrap gap-2.5">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-sm font-medium text-slate-300">
+                <CheckCircle2Icon className="size-4 text-emerald-400" />
+                Live Video Rooms
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-sm font-medium text-slate-300">
+                <CheckCircle2Icon className="size-4 text-emerald-400" />
+                Monaco Code Editor
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 text-sm font-medium text-slate-300">
+                <CheckCircle2Icon className="size-4 text-emerald-400" />
+                Multi-Language Compiler
+              </span>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4">
+            {/* CALL TO ACTION BUTTONS */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <SignInButton mode="modal">
-                <button className="btn btn-primary btn-lg">
+                <button className="btn btn-primary btn-lg bg-gradient-to-r from-teal-500 to-emerald-600 border-none text-white font-bold rounded-xl shadow-lg hover:shadow-teal-500/25 transition-all duration-300 hover:-translate-y-0.5">
                   Start Coding Now
                   <ArrowRightIcon className="size-5" />
                 </button>
               </SignInButton>
 
-              <button className="btn btn-outline btn-lg">
-                <VideoIcon className="size-5" />
-                Watch Demo
-              </button>
+              <Link to="/problems">
+                <button className="btn btn-outline btn-lg border-zinc-800 hover:bg-zinc-800 text-slate-300 rounded-xl">
+                  <Code2Icon className="size-5" />
+                  View Sandbox
+                </button>
+              </Link>
             </div>
 
-            {/* STATS */}
-            <div className="stats stats-vertical lg:stats-horizontal bg-base-100 shadow-lg">
-              <div className="stat">
-                <div className="stat-value text-primary">10+</div>
-                <div className="stat-title">Active Users</div>
-              </div>
-              <div className="stat">
-                <div className="stat-value text-secondary">100+</div>
-                <div className="stat-title">Sessions</div>
-              </div>
-              <div className="stat">
-                <div className="stat-value text-accent">99.9%</div>
-                <div className="stat-title">Uptime</div>
+            {/* KEYLESS METRICS DISPLAY */}
+            <div className="pt-6">
+              <div className="inline-flex bg-zinc-900/50 backdrop-blur-md border border-zinc-800 rounded-2xl p-2 gap-4">
+                <div className="px-6 py-2 text-center">
+                  <div className="text-2xl font-black text-teal-400">10+</div>
+                  <div className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Active Users</div>
+                </div>
+                <div className="w-[1px] bg-zinc-800 my-2"></div>
+                <div className="px-6 py-2 text-center">
+                  <div className="text-2xl font-black text-emerald-400">100+</div>
+                  <div className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Rooms Closed</div>
+                </div>
+                <div className="w-[1px] bg-zinc-800 my-2"></div>
+                <div className="px-6 py-2 text-center">
+                  <div className="text-2xl font-black text-slate-300">99.9%</div>
+                  <div className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Uptime</div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* RIGHT IMAGE */}
-          <img
-            src="/hero.png"
-            alt="CodeCollab Platform"
-            className="w-full h-auto rounded-3xl shadow-2xl border-4 border-base-100 hover:scale-105 transition-transform duration-500"
-          />
+          {/* RIGHT COLUMN - PREMIUM IMAGE INTERFACE */}
+          <div className="lg:col-span-5 relative flex justify-center items-center">
+            {/* Glowing Ring Border effect around the image */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-teal-500 to-emerald-600 opacity-10 rounded-3xl blur-2xl -z-10"></div>
+            <img
+              src="/hero.png"
+              alt="Questly Collaborative Dashboard"
+              className="w-full max-w-md lg:max-w-none h-auto rounded-3xl shadow-2xl border border-zinc-800 hover:scale-[1.01] transition-transform duration-500"
+            />
+          </div>
         </div>
       </div>
 
-      {/* FEATURES SECTION */}
-      <div className="max-w-7xl mx-auto px-4 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
-            Everything You Need to <span className="text-primary font-mono">Succeed</span>
-          </h2>
-          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
-            Powerful features designed to make your coding interviews seamless and productive
-          </p>
-        </div>
-
-        {/* FEATURES GRID */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Feature 1 */}
-          <div className="card bg-base-100 shadow-xl">
-            <div className="card-body items-center text-center">
-              <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                <VideoIcon className="size-8 text-primary" />
-              </div>
-              <h3 className="card-title">HD Video Call</h3>
-              <p className="text-base-content/70">
-                Crystal clear video and audio for seamless communication during interviews
-              </p>
-            </div>
+      {/* CORE CAPABILITIES GRID */}
+      <div className="border-t border-zinc-800 bg-zinc-950/45 py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-xl mx-auto mb-16 space-y-4">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white">
+              Everything You Need to <span className="bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">Succeed</span>
+            </h2>
+            <p className="text-slate-400">
+              Powerful, highly responsive, and robust integrations designed to make technical evaluations fluid and seamless.
+            </p>
           </div>
 
-          {/* Feature 2 */}
-          <div className="card bg-base-100 shadow-xl">
-            <div className="card-body items-center text-center">
-              <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                <Code2Icon className="size-8 text-primary" />
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* FEATURE 1 */}
+            <div className="card bg-zinc-900/30 backdrop-blur-md border border-zinc-800 hover:border-zinc-700 transition-all duration-300 p-6 rounded-2xl">
+              <div className="card-body p-2 items-center text-center space-y-4">
+                <div className="size-14 rounded-2xl bg-teal-500/10 flex items-center justify-center border border-teal-500/20">
+                  <VideoIcon className="size-7 text-teal-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white">HD Video Rooms</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Real-time face-to-face video and voice chat integrated natively beside the collaborative code console.
+                </p>
               </div>
-              <h3 className="card-title">Live Code Editor</h3>
-              <p className="text-base-content/70">
-                Collaborate in real-time with syntax highlighting and multiple language support
-              </p>
             </div>
-          </div>
 
-          {/* Feature 3 */}
-          <div className="card bg-base-100 shadow-xl">
-            <div className="card-body items-center text-center">
-              <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                <UsersIcon className="size-8 text-primary" />
+            {/* FEATURE 2 */}
+            <div className="card bg-zinc-900/30 backdrop-blur-md border border-zinc-800 hover:border-zinc-700 transition-all duration-300 p-6 rounded-2xl">
+              <div className="card-body p-2 items-center text-center space-y-4">
+                <div className="size-14 rounded-2xl bg-teal-500/10 flex items-center justify-center border border-teal-500/20">
+                  <Code2Icon className="size-7 text-teal-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white">Collaborative IDE</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Powered by Monaco Editor for professional syntax coloring, tab completions, and responsive code state sync.
+                </p>
               </div>
-              <h3 className="card-title">Easy Collaboration</h3>
-              <p className="text-base-content/70">
-                Share your screen, discuss solutions, and learn from each other in real-time
-              </p>
+            </div>
+
+            {/* FEATURE 3 */}
+            <div className="card bg-zinc-900/30 backdrop-blur-md border border-zinc-800 hover:border-zinc-700 transition-all duration-300 p-6 rounded-2xl">
+              <div className="card-body p-2 items-center text-center space-y-4">
+                <div className="size-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                  <Users2Icon className="size-7 text-emerald-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white">Public Sandbox</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Fully operational compiler proxy routing submissions through Judge0 public servers for seamless and instant code outputs.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -179,4 +197,5 @@ function HomePage() {
     </div>
   );
 }
+
 export default HomePage;
