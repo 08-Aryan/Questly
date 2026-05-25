@@ -17,22 +17,26 @@ export async function createSession(req, res) {
     // create session in db
     const session = await Session.create({ problem, difficulty, host: userId, callId });
 
-    // create stream video call
-    await streamClient.video.call("default", callId).getOrCreate({
-      data: {
+    if (process.env.MOCK_STREAM === 'true') {
+      console.log(`[MOCK STREAM] Skipping Stream video/chat creation for session: ${session._id}`);
+    } else {
+      // create stream video call
+      await streamClient.video.call("default", callId).getOrCreate({
+        data: {
+          created_by_id: clerkId,
+          custom: { problem, difficulty, sessionId: session._id.toString() },
+        },
+      });
+
+      // chat messaging
+      const channel = chatClient.channel("messaging", callId, {
+        name: `${problem} Session`,
         created_by_id: clerkId,
-        custom: { problem, difficulty, sessionId: session._id.toString() },
-      },
-    });
+        members: [clerkId],
+      });
 
-    // chat messaging
-    const channel = chatClient.channel("messaging", callId, {
-      name: `${problem} Session`,
-      created_by_id: clerkId,
-      members: [clerkId],
-    });
-
-    await channel.create();
+      await channel.create();
+    }
 
     res.status(201).json({ session });
   } catch (error) {
@@ -116,8 +120,12 @@ export async function joinSession(req, res) {
     session.participant = userId;
     await session.save();
 
-    const channel = chatClient.channel("messaging", session.callId);
-    await channel.addMembers([clerkId]);
+    if (process.env.MOCK_STREAM === 'true') {
+      console.log(`[MOCK STREAM] Skipping Stream chat join for session: ${session._id}`);
+    } else {
+      const channel = chatClient.channel("messaging", session.callId);
+      await channel.addMembers([clerkId]);
+    }
 
     res.status(200).json({ session });
   } catch (error) {
@@ -145,13 +153,17 @@ export async function endSession(req, res) {
       return res.status(400).json({ message: "Session is already completed" });
     }
 
-    // delete stream video call
-    const call = streamClient.video.call("default", session.callId);
-    await call.delete({ hard: true });
+    if (process.env.MOCK_STREAM === 'true') {
+      console.log(`[MOCK STREAM] Skipping Stream video/chat deletion for session: ${session._id}`);
+    } else {
+      // delete stream video call
+      const call = streamClient.video.call("default", session.callId);
+      await call.delete({ hard: true });
 
-    // delete stream chat channel
-    const channel = chatClient.channel("messaging", session.callId);
-    await channel.delete();
+      // delete stream chat channel
+      const channel = chatClient.channel("messaging", session.callId);
+      await channel.delete();
+    }
 
     session.status = "completed";
     await session.save();
