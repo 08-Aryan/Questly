@@ -1,4 +1,4 @@
-import { requireAuth } from '@clerk/express'
+import { requireAuth, clerkClient } from '@clerk/express'
 import User from '../models/User.js'
 
 let cachedMockUser = null;
@@ -23,8 +23,25 @@ export const protectRoute = [
                 return next();
             }
 
-            const user = await User.findOne({clerkId})
-            if(!user) return res.status(400).json({msg:"User not found"});
+            let user = await User.findOne({clerkId})
+            
+            // Auto-heal: If database was cleared, dynamically sync user from Clerk
+            if(!user) {
+                console.log(`[AUTH] User ${clerkId} not found in DB. Initiating auto-healing sync from Clerk...`);
+                try {
+                    const clerkUser = await clerkClient.users.getUser(clerkId);
+                    user = await User.create({
+                        clerkId: clerkId,
+                        email: clerkUser.emailAddresses[0]?.emailAddress || "",
+                        name: `${clerkUser.firstName || ""} ${clerkUser.lastName || ""}`.trim() || "User",
+                        profileImage: clerkUser.imageUrl || ""
+                    });
+                    console.log(`[AUTH] Auto-healed user ${user.name} successfully in MongoDB.`);
+                } catch (clerkError) {
+                    console.error("[AUTH] Failed to auto-heal user from Clerk API:", clerkError.message);
+                    return res.status(400).json({msg:"User not found and sync failed"});
+                }
+            }
 
             if (process.env.MOCK_AUTH === 'true') {
                 cachedMockUser = user;
