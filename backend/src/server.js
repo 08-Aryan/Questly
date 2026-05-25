@@ -10,6 +10,7 @@ import { clerkMiddleware } from '@clerk/express';
 import chatRoutes from './routes/chatRoutes.js'
 import sessionRoutes from './routes/sessionRoutes.js'
 import executeRoutes from './routes/executeRoutes.js'
+import { cleanupIdleSessions } from './controllers/sessionController.js';
 // Initialize environment variables
 
 const app = express();
@@ -45,6 +46,10 @@ const startServer = async () => {
     await connectDB();
     app.listen(ENV.PORT, () => {
       console.log(`Server is running on port ${ENV.PORT}`);
+      
+      // Run idle sessions cleanup on startup, then every 5 minutes
+      cleanupIdleSessions();
+      setInterval(cleanupIdleSessions, 5 * 60 * 1000);
     });
   }
   catch(error){

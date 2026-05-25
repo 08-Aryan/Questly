@@ -25,6 +25,10 @@ const sessionSchema = new mongoose.Schema({
         enum:['active','completed'],
         default: 'active' 
     },
+    lastHeartbeatAt:{
+        type:Date,
+        default:Date.now
+    },
     // Stream Video Call Id
     callId:{
         type:String,

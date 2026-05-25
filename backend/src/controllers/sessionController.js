@@ -174,3 +174,67 @@ export async function endSession(req, res) {
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+export async function sendHeartbeat(req, res) {
+  try {
+    const { id } = req.params;
+
+    // Update the lastHeartbeatAt timestamp
+    const session = await Session.findByIdAndUpdate(
+      id,
+      { lastHeartbeatAt: new Date() },
+      { new: true }
+    );
+
+    if (!session) {
+      return res.status(404).json({ message: "Session not found" });
+    }
+
+    res.status(200).json({ success: true, message: "Heartbeat received successfully" });
+  } catch (error) {
+    console.log("Error in sendHeartbeat controller:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export async function cleanupIdleSessions() {
+  try {
+    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+
+    // Find sessions in 'active' status where lastHeartbeatAt is older than 10 minutes
+    const idleSessions = await Session.find({
+      status: "active",
+      lastHeartbeatAt: { $lt: tenMinutesAgo }
+    });
+
+    if (idleSessions.length === 0) return;
+
+    console.log(`[CLEANUP] Found ${idleSessions.length} idle active sessions. Terminating...`);
+
+    for (const session of idleSessions) {
+      try {
+        console.log(`[CLEANUP] Terminating idle session ${session._id} (callId: ${session.callId})...`);
+
+        if (process.env.MOCK_STREAM === 'true') {
+          console.log(`[CLEANUP] [MOCK STREAM] Skipping Stream video/chat deletion for session: ${session._id}`);
+        } else {
+          // delete stream video call
+          const call = streamClient.video.call("default", session.callId);
+          await call.delete({ hard: true });
+
+          // delete stream chat channel
+          const channel = chatClient.channel("messaging", session.callId);
+          await channel.delete();
+        }
+
+        session.status = "completed";
+        await session.save();
+        console.log(`[CLEANUP] Session ${session._id} terminated successfully.`);
+      } catch (err) {
+        console.error(`[CLEANUP] Failed to terminate session ${session._id}:`, err.message);
+      }
+    }
+  } catch (error) {
+    console.error("[CLEANUP] Error in cleanupIdleSessions:", error.message);
+  }
+}
