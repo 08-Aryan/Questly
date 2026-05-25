@@ -1,19 +1,17 @@
 import { requireAuth } from '@clerk/express'
 import User from '../models/User.js'
 
-const clerkAuth = requireAuth();
 let cachedMockUser = null;
 
+const mockAuthMiddleware = (req, res, next) => {
+    // Bypass Clerk and populate mock auth details
+    const mockClerkId = req.headers['x-mock-clerk-id'] || 'mock_clerk_host';
+    req.auth = () => ({ userId: mockClerkId });
+    return next();
+};
+
 export const protectRoute = [
-    async (req, res, next) => {
-        if (process.env.MOCK_AUTH === 'true') {
-            // Bypass Clerk and populate mock auth details
-            const mockClerkId = req.headers['x-mock-clerk-id'] || 'mock_clerk_host';
-            req.auth = () => ({ userId: mockClerkId });
-            return next();
-        }
-        clerkAuth(req, res, next);
-    },
+    process.env.MOCK_AUTH === 'true' ? mockAuthMiddleware : requireAuth(),
     async (req,res,next)=>{
         try {
             const clerkId = req.auth().userId;
