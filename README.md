@@ -66,6 +66,7 @@ Through query optimization, database index engineering, and Express middleware l
 * **⚙️ Isolated Code Execution**: Protected proxy routing code executions to Judge0 API, supporting multiple compilers (`JavaScript`, `Python`, `C++`, `Java`) and returning stdout/stderr instantly.
 * **🎯 Automated Feedback & Confetti**: Runs candidate code against test cases in real-time, displaying immediate success (confetti animations) or precise failure traces.
 * **🧠 Event-Driven User Sync**: Utilizes Clerk authentication webhooks combined with Inngest background job workers to synchronize profiles into MongoDB and Stream Chat asynchronously.
+* **🛡️ Auto-Healing User Sync**: Integrates a dynamic Clerk synchronization fallback inside the authorization middleware, automatically recreating missing user database documents from the Clerk API on-the-fly to guarantee zero application breakdown if database wipes occur.
 * **🔒 Lobby & Room Lock Controls**: Strict room occupancy rules allowing only two authenticated participants (Host + Candidate) to prevent security breaches.
 
 ---
